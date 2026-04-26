@@ -2,7 +2,7 @@
 
 Professional, open-source, multi-language real-time map and safety guide for drone pilots in Romania. 
 
-[Explore the App](https://faustogm-beep.github.io/romania-uav-safety/) (Coming soon via GitHub Pages)
+[Explore the App](https://faustogm-beep.github.io/romania-uav-safety/)
 
 ---
 
