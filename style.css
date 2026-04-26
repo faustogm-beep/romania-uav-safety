@@ -1,14 +1,14 @@
 :root {
-    --bg-dark: #0b0e14;
-    --glass-bg: rgba(20, 24, 33, 0.8);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.6);
-    --accent: #00e5ff;
-    --success: #00ff88;
+    --bg-dark: #111316;
+    --glass-bg: rgba(30, 34, 45, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #e2e2e6;
+    --text-secondary: rgba(226, 226, 230, 0.6);
+    --accent: #7bd0ff;
+    --success: #4ae176;
     --warning: #ffcc00;
-    --danger: #ff4d4d;
-    --panel-width: 340px;
+    --danger: #ffb4ab;
+    --panel-width: 360px;
 }
 
 * {
@@ -37,10 +37,10 @@ body, html {
 
 .glass {
     background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--glass-border);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 /* UI Structure */
@@ -375,6 +375,28 @@ body, html {
     border: none;
     color: white;
     font-size: 20px;
+    cursor: pointer;
+}
+
+/* Leaflet Control Styling */
+.leaflet-control-layers {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 12px !important;
+    color: var(--text-primary) !important;
+    padding: 10px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
+}
+
+.leaflet-control-layers-list {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.leaflet-control-layers label {
+    margin-bottom: 5px;
     cursor: pointer;
 }
 
