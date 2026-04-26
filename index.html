@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UAV Safety Guide Romania</title>
+    
+    <!-- PWA & Mobile Meta -->
+    <meta name="description" content="Professional safety guide and real-time map for drone pilots in Romania.">
+    <meta name="theme-color" content="#0b0e14">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <!-- UI Overlay -->
+    <div class="ui-wrapper">
+        <!-- Top Bar -->
+        <nav class="top-bar glass">
+            <div class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>UAV Romania <small>Safety</small></span>
+            </div>
+            <div class="nav-actions">
+                <button id="lang-toggle" class="btn-icon" title="Change Language">
+                    <i class="fas fa-globe"></i>
+                    <span id="current-lang">EN</span>
+                </button>
+                <button id="safety-toggle" class="btn-icon primary" title="Safety Checklist">
+                    <i class="fas fa-check-double"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Sidebar -->
+        <aside class="sidebar glass" id="sidebar">
+            <div class="safety-indicator" id="status-card">
+                <div class="status-dot green" id="status-dot"></div>
+                <div class="status-text">
+                    <h2 data-i18n="status_ok">Clear to Fly</h2>
+                    <p data-i18n="status_ok_sub">Always maintain visual line of sight.</p>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="zone-search" placeholder="Search zone..." data-i18n-placeholder="search_placeholder">
+            </div>
+
+            <div class="scroll-area" id="zone-list">
+                <!-- Zones will be populated here -->
+                <div class="loading-spinner">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Floating Actions -->
+        <div class="floating-actions">
+            <button id="locate-me" class="btn-float accent" title="Locate Me">
+                <i class="fas fa-crosshairs"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Safety Checklist Modal -->
+    <div class="modal" id="safety-modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h3 data-i18n="checklist_title">Pre-Flight Checklist</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <ul class="checklist" id="checklist-items">
+                    <!-- Items via JS -->
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <p class="disclaimer" data-i18n="disclaimer_short">Disclaimer: For information only. Always check official sources.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Panel -->
+    <div class="details-panel glass" id="details-panel">
+        <button class="close-details">&times;</button>
+        <div id="details-content"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
