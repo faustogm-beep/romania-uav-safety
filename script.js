@@ -203,31 +203,39 @@ const I18N = {
 
 let currentLang = localStorage.getItem('uav_lang') || 'ro';
 
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize i18n
     updateLanguageUI();
 
-    // Map Layers Definitions
     const baseLayers = {
-        "Dark Matter": L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; CARTO'
-        }),
-        "Satellite (Ortho)": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri'
-        }),
-        "Light Mode": L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; CARTO'
-        })
+        dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' }),
+        ortho: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'Esri' }),
+        light: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' })
     };
 
-    // Map Initialization
+    let activeLayerKey = localStorage.getItem('uav_map_mode') || 'dark';
+
     const map = L.map('map', { 
         zoomControl: false,
-        layers: [baseLayers["Dark Matter"]] 
+        layers: [baseLayers[activeLayerKey]] 
     }).setView([45.9432, 24.9668], 7);
     
-    // Add Layer Control
-    const layerSwitcher = L.control.layers(baseLayers, {}, { position: 'topright', collapsed: true }).addTo(map);
+    // Custom Layer Toggle
+    document.getElementById('layer-toggle').onclick = () => {
+        const keys = Object.keys(baseLayers);
+        let nextIdx = (keys.indexOf(activeLayerKey) + 1) % keys.length;
+        let nextKey = keys[nextIdx];
+        
+        map.removeLayer(baseLayers[activeLayerKey]);
+        map.addLayer(baseLayers[nextKey]);
+        
+        activeLayerKey = nextKey;
+        localStorage.setItem('uav_map_mode', activeLayerKey);
+    };
 
     let uavData = { static: [], dynamic: [] };
     let geoLayer = null;
